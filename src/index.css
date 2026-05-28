@@ -1,13 +1,371 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* =========================================
+   1. VARIÁVEIS GLOBAIS E RESET
+   ========================================= */
+:root {
+  /* Paleta Zine/Manifesto */
+  --bg-color: #f4f4f0;
+  --zine-purple: #9333ea;
+  --zine-orange: #ea580c;
+  --zine-yellow: #facc15;
+  --zine-green: #22c55e;
+  
+  /* Efeitos Brutalistas Constantes */
+  --border-thick: 3px solid #000;
+  --shadow-solid: 6px 6px 0px 0px #000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #000;
+  /* Evita que o site "sambar" pro lado no celular se algum bloco vazar */
+  overflow-x: hidden; 
+}
+
+/* =========================================
+   2. TIPOGRAFIA & COMPONENTES (BASE = MOBILE)
+   ========================================= */
+h1, h2, h3 {
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+/* Os cards já nascem com 100% de largura pro celular */
+.zine-card {
+  background-color: #fff;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-solid);
+  padding: 1.5rem; /* Padding menor pro mobile */
+  transition: transform 0.2s;
+  width: 100%;
+}
+
+.zine-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 10px 10px 0px 0px #000;
+}
+
+.zine-title-badge {
+  background-color: var(--zine-yellow);
+  border: var(--border-thick);
+  box-shadow: 4px 4px 0px 0px #000;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  font-weight: 900;
+  font-size: 1.2rem; /* Fonte menor no celular */
+  text-transform: uppercase;
+}
+
+.zine-button {
+  background-color: #000;
+  color: #fff;
+  border: var(--border-thick);
+  font-weight: 900;
+  padding: 1rem;
+  width: 100%; /* Botão sempre ocupa a tela toda no celular */
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.zine-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* =========================================
+   3. HEADER & NAVEGAÇÃO (NASCEM PRO CELULAR)
+   ========================================= */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  border-bottom: var(--border-thick);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap; /* Deixa o menu empurrar pra baixo ao abrir */
+}
+
+.logo-badge {
+  background-color: var(--zine-yellow);
+  padding: 0.5rem;
+  border: var(--border-thick);
+  font-weight: 900;
+  transform: rotate(-2deg);
+  cursor: pointer;
+  font-size: 0.8rem;
+  max-width: 70%; /* Garante espaço pro botão ao lado */
+}
+
+/* Botão Sanduíche Brutalista */
+.mobile-menu-btn {
+  background-color: #000;
+  color: #fff;
+  border: var(--border-thick);
+  width: 3rem;
+  height: 3rem;
+  font-weight: 900;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.mobile-menu-btn.open {
+  background-color: var(--zine-yellow);
+  color: #000;
+}
+
+/* O Menu invisível e empilhado no mobile */
+.nav-links {
+  display: none; 
+  width: 100%;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  margin-top: 1rem;
+  border-top: var(--border-thick);
+}
+
+.nav-links.open {
+  display: flex;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 900;
+  font-size: 1.2rem;
+  text-align: center; /* Centralizado pro dedo bater fácil */
+}
+
+/* =========================================
+   4. LAYOUT BASE (MOBILE)
+   ========================================= */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr; /* Força 1 coluna em telas pequenas */
+  gap: 3rem;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+/* =========================================
+   ESTILOS DO HERO (BASE/MOBILE)
+   ========================================= */
+.hero-section {
+  border: var(--border-thick);
+  background-color: var(--zine-purple);
+  color: #fff;
+  padding: 2.5rem 1.5rem;
+  box-shadow: var(--shadow-solid);
+  margin-bottom: 2rem;
+}
+
+.hero-section h1 {
+  /* Diminuímos o tamanho base (1.8rem) e a escala (9vw) para a palavra inteira caber no celular */
+  font-size: clamp(1.8rem, 9vw, 3.5rem);
+  
+  /* Tiramos a marreta que decepava as letras */
+  word-break: normal; 
+  
+  /* Usamos uma quebra inteligente que só age se a tela for ABSURDAMENTE pequena (ex: Galaxy Fold fechado) */
+  overflow-wrap: break-word; 
+}
+.hero-section p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  max-width: 600px;
+}
+
+.hero-section .zine-button {
+  margin-top: 2rem;
+  background-color: var(--zine-yellow);
+  color: #000;
+  max-width: 300px;
+}
+
+/* =========================================
+   5. EXPANSÃO: TABLET E DESKTOP (PROGRESSIVE ENHANCEMENT)
+   ========================================= */
+
+/* Quando a tela atingir 768px (Tablet em diante) */
+@media (min-width: 768px) {
+  
+  .zine-title-badge {
+    font-size: 1.5rem; /* Título cresce */
+  }
+
+  .zine-card {
+    padding: 2rem; /* Ganha respiro */
+  }
+
+  .site-header {
+    padding: 1.5rem 2rem;
+    flex-wrap: nowrap; /* Trava numa linha só */
+  }
+
+  .logo-badge {
+    font-size: 1rem;
+    max-width: none;
+  }
+
+  .mobile-menu-btn {
+    display: none; /* Mata o menu sanduíche */
+  }
+
+  .nav-links {
+    display: flex; /* Força o menu a aparecer */
+    width: auto;
+    flex-direction: row; /* Coloca os links lado a lado */
+    gap: 2rem;
+    padding: 0;
+    margin-top: 0;
+    border-top: none;
+  }
+
+  .nav-links a {
+    text-align: left;
+    transition: transform 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--zine-purple);
+    transform: translateY(-2px);
+  }
+
+  .grid-layout {
+    grid-template-columns: repeat(2, 1fr); /* Vira 2 colunas */
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px; /* Trava o tamanho máximo */
+    margin: 0 auto; /* Centraliza a caixa na tela do PC */
+  }
+
+  /* Desktop: Hero ocupa a tela toda e tira a quebra feia */
+  .hero-section {
+    grid-column: 1 / -1; /* Força a ocupar todas as colunas do Grid */
+    padding: 4rem 2rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 5rem;
+    word-break: normal; /* Desativa a marreta da quebra de texto */
+  }
+
+  /* Estilo Base para Cards de Detalhe */
+.detalhe-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border: 5px solid #000;
+  box-shadow: 10px 10px 0px 0px #000;
+}
+
+/* Ajuste do Video/Iframe para ser responsivo */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+  height: 0;
+  overflow: hidden;
+  border: 3px solid #000;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Container de listas brutalistas */
+.highlight-yellow {
+  background-color: var(--zine-yellow);
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border: 3px solid #000;
+  transform: rotate(-1deg);
+  margin-bottom: 1rem;
+  box-shadow: 4px 4px 0px 0px #000;
+}
+
+.lista-direitos {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+/* Base comum para os itens */
+.lista-direitos li {
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  border: 3px solid #000; /* Borda bem grossa */
+  font-weight: 900;
+  background-color: #fff;
+  box-shadow: 4px 4px 0px 0px #000; /* Sombra sólida */
+}
+
+/* Estilo para "O QUE FUNCIONA" (Verde) */
+.lista-funciona li {
+  border-left: 10px solid var(--zine-green);
+}
+
+.lista-funciona li::before {
+  content: '✓';
+  margin-right: 10px;
+  color: var(--zine-green);
+}
+
+/* Estilo para "O QUE NÃO FUNCIONA" (Vermelho) */
+.lista-nao-funciona li {
+  border-left: 10px solid var(--zine-orange);
+}
+
+.lista-nao-funciona li::before {
+  content: '✕';
+  margin-right: 10px;
+  color: var(--zine-orange);
+}
+
+/* Títulos de seção com as cores correspondentes */
+.titulo-secao-funciona {
+  background-color: var(--zine-green);
+  color: #000;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border: var(--border-thick);
+  transform: rotate(-1deg);
+  font-weight: 900;
+}
+
+.titulo-secao-nao-funciona {
+  background-color: var(--zine-orange);
+  color: #000;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border: var(--border-thick);
+  transform: rotate(1deg);
+  font-weight: 900;
+}
 }
