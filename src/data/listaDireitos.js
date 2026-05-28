@@ -1,5 +1,5 @@
 export const listaDireitos = [
-  { id: '01', title: 'IGUALDADE', desc: 'Todos nascem livres e iguais em dignidade e direitos.', video: 'ScMzIvxBSi4', funciona: ['Cotas raciais e sociais.', 'SUS universal.'], naoFunciona: ['Desigualdade salarial.', 'Violência periférica.'] },
+  { id: '01', title: 'IGUALDADE', desc: 'Todos nascem livres e iguais em dignidade e direitos.', video: 'zLh9DDoZUWM', funciona: ['Cotas raciais e sociais.', 'SUS universal.'], naoFunciona: ['Desigualdade salarial.', 'Violência periférica.'] },
   { id: '02', title: 'LIBERDADE', desc: 'Sem distinção de raça, cor, sexo, língua ou religião.', video: 'VIDEO_ID_02', funciona: ['Direito de ir e vir.', 'Liberdade de culto.'], naoFunciona: ['Trabalho análogo à escravidão.', 'Perseguição religiosa.'] },
   { id: '03', title: 'VIDA', desc: 'Todo indivíduo tem direito à vida, à liberdade e à segurança pessoal.', video: 'VIDEO_ID_03', funciona: ['Programas de vacinação.', 'Direitos humanos.'], naoFunciona: ['Violência policial.', 'Criminalidade urbana.'] },
   { id: '04', title: 'ESCRAVIDÃO', desc: 'Ninguém será mantido em escravidão ou servidão.', video: 'VIDEO_ID_04', funciona: ['Fiscalização do trabalho.', 'Denúncias anônimas.'], naoFunciona: ['Trabalho escravo rural.', 'Exploração doméstica.'] },

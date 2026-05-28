@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react'; // Adicionado useEffect aqui
 import { listaDireitos } from '../data/listaDireitos';
 
 const DetalheDireito = ({ navegarPara, idDireito }) => {
   const idFormatado = idDireito.replace('Direito', '');
   const direito = listaDireitos.find(d => d.id === idFormatado);
+
+  // Scroll automático para o topo ao mudar de direito
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [idDireito]);
 
   if (!direito) return <div>Direito não encontrado.</div>;
 
@@ -23,10 +28,10 @@ const DetalheDireito = ({ navegarPara, idDireito }) => {
           </span>
         </div>
 
-        {/* Vídeo */}
+        {/* Vídeo Dinâmico (Lê o campo 'video' do objeto) */}
         <div className="video-wrapper" style={{ marginBottom: '2rem' }}>
           <iframe
-            src={`https://www.youtube.com/embed/zLh9DDoZUWM`}
+            src={`https://www.youtube.com/embed/${direito.video}`}
             allowFullScreen
             title="Vídeo Direito"
           />
