@@ -10,6 +10,7 @@
   --zine-green: #22c55e;
   --zine-cian: #06b6d4;
   --zine-pink: #ec4899;
+
   /* Efeitos Brutalistas Constantes */
   --border-thick: 3px solid #000;
   --shadow-solid: 6px 6px 0px 0px #000;
@@ -25,25 +26,25 @@ body {
   background-color: var(--bg-color);
   font-family: system-ui, -apple-system, sans-serif;
   color: #000;
-  /* Evita que o site "sambar" pro lado no celular se algum bloco vazar */
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
 /* =========================================
    2. TIPOGRAFIA & COMPONENTES (BASE = MOBILE)
    ========================================= */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   text-transform: uppercase;
   font-weight: 900;
   line-height: 1.1;
 }
 
-/* Os cards já nascem com 100% de largura pro celular */
 .zine-card {
   background-color: #fff;
   border: var(--border-thick);
   box-shadow: var(--shadow-solid);
-  padding: 1.5rem; /* Padding menor pro mobile */
+  padding: 1.5rem;
   transition: transform 0.2s;
   width: 100%;
 }
@@ -60,7 +61,7 @@ h1, h2, h3 {
   padding: 0.5rem 1rem;
   display: inline-block;
   font-weight: 900;
-  font-size: 1.2rem; /* Fonte menor no celular */
+  font-size: 1.2rem;
   text-transform: uppercase;
 }
 
@@ -70,7 +71,7 @@ h1, h2, h3 {
   border: var(--border-thick);
   font-weight: 900;
   padding: 1rem;
-  width: 100%; /* Botão sempre ocupa a tela toda no celular */
+  width: 100%;
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.2s ease;
@@ -82,33 +83,40 @@ h1, h2, h3 {
 }
 
 /* =========================================
-   3. HEADER & NAVEGAÇÃO (NASCEM PRO CELULAR)
+   3. HEADER & NAVEGAÇÃO
    ========================================= */
 .site-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
+  /* Mais padding lateral */
+  min-height: 85px;
+  /* Força o header a abraçar o logo de duas linhas */
   background-color: #fff;
   border-bottom: var(--border-thick);
   position: sticky;
   top: 0;
   z-index: 100;
-  flex-wrap: wrap; /* Deixa o menu empurrar pra baixo ao abrir */
+  flex-wrap: wrap;
 }
 
 .logo-badge {
   background-color: var(--zine-yellow);
-  padding: 0.5rem;
+  padding: 0.6rem;
   border: var(--border-thick);
   font-weight: 900;
   transform: rotate(-2deg);
   cursor: pointer;
   font-size: 0.8rem;
-  max-width: 70%; /* Garante espaço pro botão ao lado */
+  max-width: 65%;
+  /* Evita bater no menu hambúrguer */
+  line-height: 1.4;
+  /* Dá um respiro entre as duas linhas do texto */
+  margin: 0.5rem 0;
+  /* Afasta das bordas do header */
 }
 
-/* Botão Sanduíche Brutalista */
 .mobile-menu-btn {
   background-color: #000;
   color: #fff;
@@ -129,19 +137,19 @@ h1, h2, h3 {
   color: #000;
 }
 
-/* O Menu invisível e empilhado no mobile */
 .nav-links {
-  display: none; 
+  display: none;
   width: 100%;
   flex-direction: column;
   gap: 1.5rem;
   padding: 1.5rem 0;
   margin-top: 1rem;
   border-top: var(--border-thick);
+  background-color: #fff;
 }
 
 .nav-links.open {
-  display: flex;
+  display: flex !important;
 }
 
 .nav-links a {
@@ -149,42 +157,39 @@ h1, h2, h3 {
   color: #000;
   font-weight: 900;
   font-size: 1.2rem;
-  text-align: center; /* Centralizado pro dedo bater fácil */
+  text-align: center;
 }
 
 /* =========================================
-   4. LAYOUT BASE (MOBILE)
+   4. LAYOUT BASE E HERO (MOBILE)
    ========================================= */
 .grid-layout {
   display: grid;
-  grid-template-columns: 1fr; /* Força 1 coluna em telas pequenas */
-  gap: 3rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  /* Reduzido de 3rem para tirar o buraco branco gigante */
   padding: 1.5rem;
   width: 100%;
 }
 
-/* =========================================
-   ESTILOS DO HERO (BASE/MOBILE)
-   ========================================= */
 .hero-section {
   border: var(--border-thick);
   background-color: var(--zine-purple);
   color: #fff;
-  padding: 2.5rem 1.5rem;
+  padding: 2rem 1.5rem;
   box-shadow: var(--shadow-solid);
-  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  /* Descola um pouco do header */
+  margin-bottom: 1rem;
 }
 
 .hero-section h1 {
-  /* Diminuímos o tamanho base (1.8rem) e a escala (9vw) para a palavra inteira caber no celular */
-  font-size: clamp(1.8rem, 9vw, 3.5rem);
-  
-  /* Tiramos a marreta que decepava as letras */
-  word-break: normal; 
-  
-  /* Usamos uma quebra inteligente que só age se a tela for ABSURDAMENTE pequena (ex: Galaxy Fold fechado) */
-  overflow-wrap: break-word; 
+  /* Escala ajustada para palavras longas como SOBREVIVÊNCIA caberem bem */
+  font-size: clamp(1.4rem, 7.5vw, 3.5rem);
+  line-height: 1.2;
+  word-break: break-word;
 }
+
 .hero-section p {
   font-size: 1.2rem;
   font-weight: bold;
@@ -192,46 +197,153 @@ h1, h2, h3 {
   max-width: 600px;
 }
 
-.hero-section .zine-button {
-  margin-top: 2rem;
+/* =========================================
+   5. DETALHES DO DIREITO (GLOBAL - MOBILE E PC)
+   ========================================= */
+.detalhe-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 90%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border: 5px solid #000;
+  box-shadow: 6px 6px 0px 0px #000;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border: 3px solid #000;
+  margin-bottom: 1.5rem;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.highlight-yellow {
   background-color: var(--zine-yellow);
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border: 3px solid #000;
+  transform: rotate(-1deg);
+  margin-bottom: 1rem;
+  box-shadow: 4px 4px 0px 0px #000;
+}
+
+.lista-direitos {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.lista-direitos li {
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  border: 3px solid #000;
+  font-weight: 900;
+  background-color: #fff;
+  box-shadow: 4px 4px 0px 0px #000;
+  width: 100%;
+}
+
+.lista-funciona li {
+  border-left: 10px solid var(--zine-green);
+}
+
+.lista-funciona li::before {
+  content: '✓';
+  margin-right: 10px;
+  color: var(--zine-green);
+}
+
+.lista-nao-funciona li {
+  border-left: 10px solid var(--zine-orange);
+}
+
+.lista-nao-funciona li::before {
+  content: '✕';
+  margin-right: 10px;
+  color: var(--zine-orange);
+}
+
+.titulo-secao-funciona,
+.titulo-secao-nao-funciona {
   color: #000;
-  max-width: 300px;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border: var(--border-thick);
+  font-weight: 900;
+}
+
+.titulo-secao-funciona {
+  background-color: var(--zine-green);
+  transform: rotate(-1deg);
+}
+
+.titulo-secao-nao-funciona {
+  background-color: var(--zine-orange);
+  transform: rotate(1deg);
 }
 
 /* =========================================
-   5. EXPANSÃO: TABLET E DESKTOP (PROGRESSIVE ENHANCEMENT)
+   6. EXPANSÃO: TABLET E DESKTOP
    ========================================= */
-
-/* Quando a tela atingir 768px (Tablet em diante) */
 @media (min-width: 768px) {
-  
   .zine-title-badge {
-    font-size: 1.5rem; /* Título cresce */
+    font-size: 1.5rem;
   }
 
   .zine-card {
-    padding: 2rem; /* Ganha respiro */
+    padding: 2rem;
+    min-height: 400px;
+  }
+
+  .zine-card h2 {
+    font-size: 2.5rem !important;
+    /* Mantém impacto mas evita quebra estranha */
+  }
+
+  .icone-img {
+    width: 100%;
+    filter: grayscale(10%) contrast(120%) brightness(105%);
+    border-bottom: 4px solid #000;
+    /* Separa a arte do texto */
   }
 
   .site-header {
     padding: 1.5rem 2rem;
-    flex-wrap: nowrap; /* Trava numa linha só */
+    flex-wrap: nowrap;
+    min-height: auto;
   }
 
   .logo-badge {
     font-size: 1rem;
     max-width: none;
+    margin: 0;
   }
 
   .mobile-menu-btn {
-    display: none; /* Mata o menu sanduíche */
+    display: none;
   }
 
   .nav-links {
-    display: flex; /* Força o menu a aparecer */
+    display: flex !important;
+    position: static;
     width: auto;
-    flex-direction: row; /* Coloca os links lado a lado */
+    flex-direction: row;
     gap: 2rem;
     padding: 0;
     margin-top: 0;
@@ -249,124 +361,48 @@ h1, h2, h3 {
   }
 
   .grid-layout {
-    grid-template-columns: repeat(2, 1fr); /* Vira 2 colunas */
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     padding: 2rem;
-    max-width: 1200px; /* Trava o tamanho máximo */
-    margin: 0 auto; /* Centraliza a caixa na tela do PC */
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  /* Desktop: Hero ocupa a tela toda e tira a quebra feia */
   .hero-section {
-    grid-column: 1 / -1; /* Força a ocupar todas as colunas do Grid */
+    grid-column: 1 / -1;
     padding: 4rem 2rem;
   }
-  
+
   .hero-section h1 {
     font-size: 5rem;
-    word-break: normal; /* Desativa a marreta da quebra de texto */
+    word-break: normal;
   }
 
-  /* Estilo Base para Cards de Detalhe */
-.detalhe-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border: 5px solid #000;
-  box-shadow: 10px 10px 0px 0px #000;
+  .detalhe-container {
+    max-width: 800px;
+    padding: 2.5rem;
+  }
 }
 
-/* Ajuste do Video/Iframe para ser responsivo */
-.video-wrapper {
-  position: relative;
-  padding-bottom: 56.25%; /* Aspect ratio 16:9 */
-  height: 0;
-  overflow: hidden;
-  border: 3px solid #000;
+/* =========================================
+   7. REGRAS EXCLUSIVAS MOBILE VS DESKTOP
+   ========================================= */
+@media (min-width: 768px) {
+  .quebra-mobile {
+    display: none;
+  }
+
+  .escondido-mobile {
+    display: block !important;
+  }
+
+  .botao-carregar-mais {
+    display: none !important;
+  }
 }
 
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Container de listas brutalistas */
-.highlight-yellow {
-  background-color: var(--zine-yellow);
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border: 3px solid #000;
-  transform: rotate(-1deg);
-  margin-bottom: 1rem;
-  box-shadow: 4px 4px 0px 0px #000;
-}
-
-.lista-direitos {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 2rem;
-}
-
-/* Base comum para os itens */
-.lista-direitos li {
-  position: relative;
-  padding: 1rem;
-  margin-bottom: 0.8rem;
-  border: 3px solid #000; /* Borda bem grossa */
-  font-weight: 900;
-  background-color: #fff;
-  box-shadow: 4px 4px 0px 0px #000; /* Sombra sólida */
-}
-
-/* Estilo para "O QUE FUNCIONA" (Verde) */
-.lista-funciona li {
-  border-left: 10px solid var(--zine-green);
-}
-
-.lista-funciona li::before {
-  content: '✓';
-  margin-right: 10px;
-  color: var(--zine-green);
-}
-
-/* Estilo para "O QUE NÃO FUNCIONA" (Vermelho) */
-.lista-nao-funciona li {
-  border-left: 10px solid var(--zine-orange);
-}
-
-.lista-nao-funciona li::before {
-  content: '✕';
-  margin-right: 10px;
-  color: var(--zine-orange);
-}
-
-/* Títulos de seção com as cores correspondentes */
-.titulo-secao-funciona {
-  background-color: var(--zine-green);
-  color: #000;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  margin: 1rem 0;
-  border: var(--border-thick);
-  transform: rotate(-1deg);
-  font-weight: 900;
-}
-
-.titulo-secao-nao-funciona {
-  background-color: var(--zine-orange);
-  color: #000;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  margin: 1rem 0;
-  border: var(--border-thick);
-  transform: rotate(1deg);
-  font-weight: 900;
-}
+@media (max-width: 767px) {
+  .escondido-mobile {
+    display: none !important;
+  }
 }
