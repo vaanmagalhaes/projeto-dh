@@ -1,40 +1,112 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { listaIcones } from '../data/listaIcones';
+
+// Importando as imagens da pasta assets (faça isso para todas as 12)
+import davis from '../assets/davis.png';
+import marielle from '../assets/marielle.png';
+import malala from '../assets/malala.png';
+import mandela from '../assets/mandela.png';
+//import krenak from '../assets/krenak.png';
+import king from '../assets/king.png';
+import julio from '../assets/julio.png';
+import greta from '../assets/greta.png';
+//import lorde from '../assets/lorde.png';
+import freire from '../assets/freire.png';
+import evaristo from '../assets/evaristo.png';
+//import ghandi from '../assets/ghandi.png';
+
+const fotos = { davis, marielle, malala, mandela, king, julio, greta, freire, evaristo };
 
 const Icones = () => {
-  const iconesData = [
-    { nome: 'NELSON MANDELA', role: 'ANTI-APARTHEID / ÁFRICA DO SUL', cor: 'var(--zine-purple)', cita: 'Ser livre não é apenas quebrar as correntes, mas viver de uma maneira que respeite a liberdade dos outros.' },
-    { nome: 'ANGELA DAVIS', role: 'DIREITOS CIVIS / EUA', cor: 'var(--zine-orange)', cita: 'Não estou mais aceitando as coisas que não posso mudar. Estou mudando as coisas que não posso aceitar.' },
-    { nome: 'MALALA YOUSAFZAI', role: 'DIREITO À EDUCAÇÃO / PAQUISTÃO', cor: 'var(--zine-yellow)', cita: 'Uma criança, um professor, um livro e uma caneta podem mudar o mundo.' },
-    { nome: 'MARIELLE FRANCO', role: 'DIREITOS HUMANOS / BRASIL', cor: 'var(--zine-green)', cita: 'A semente que a gente planta tem que brotar, tem que vingar.' },
-    { nome: 'ZUMBI DOS PALMARES', role: 'RESISTÊNCIA NEGRA / BRASIL', cor: 'var(--zine-orange)', cita: 'Viver é lutar. O quilombo é a nossa terra, a nossa liberdade.' },
-    { nome: 'MARTIN LUTHER KING JR.', role: 'DIREITOS CIVIS / EUA', cor: 'var(--zine-purple)', cita: 'O que me preocupa não é o grito dos maus, mas o silêncio dos bons.' }
-  ];
+  const [dossieAberto, setDossieAberto] = useState(null);
 
   return (
-    <div style={{ padding: '2rem 0' }}>
-      <div style={{ padding: '0 2rem', marginBottom: '2rem' }}>
-        <h1 className="zine-title-badge" style={{ transform: 'rotate(-2deg)', backgroundColor: '#000', color: '#fff' }}>
-          ÍCONES DA RESISTÊNCIA
+    <div style={{ padding: '2rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
+        <h1 className="zine-title-badge" style={{ transform: 'rotate(1deg)', fontSize: '2rem', marginBottom: '1rem' }}>
+          A LINHA DE FRENTE
         </h1>
+        <p style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>Vozes que mudaram o mundo.</p>
+        <p style={{ fontSize: '1.2rem', fontWeight: 'regular' }}>Ao longo da história, algumas pessoas se recusaram a aceitar a injustiça como algo normal. Com protestos, escritos, organização política e resistência, elas ajudaram a ampliar direitos e inspiraram mudanças sociais que continuam impactando milhões de vidas.</p>
       </div>
 
-      <div className="grid-layout">
-        {iconesData.map((icone, index) => (
-          <div key={index} style={{ position: 'relative', marginTop: '1rem' }}>
-            {/* Bloco de imagem simulado (quadro) */}
-            <div style={{ border: 'var(--border-thick)', backgroundColor: '#000', height: '250px', width: '100%' }}></div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
+        {listaIcones.map((icone) => (
+          <article key={icone.id} className="zine-card" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
             
-            {/* Card com a info */}
-            <div className="zine-card" style={{ position: 'relative', marginTop: '-40px', marginLeft: '20px', marginRight: '20px', zIndex: 10 }}>
-              <h2 style={{ fontSize: '1.4rem' }}>{icone.nome}</h2>
-              <p style={{ color: icone.cor, fontWeight: '900', fontSize: '0.7rem', marginTop: '0.5rem', textTransform: 'uppercase' }}>
-                {icone.role}
-              </p>
-              <blockquote style={{ marginTop: '1rem', fontStyle: 'italic', borderLeft: 'var(--border-thick)', paddingLeft: '1rem', fontWeight: 'bold', fontSize: '0.9rem' }}>
-                "{icone.cita}"
-              </blockquote>
+            <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
+              <img 
+                src={fotos[icone.file]} 
+                alt={icone.nome} 
+                style={{ 
+                  width: '100%', 
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'grayscale(20%) contrast(110%) brightness(105%)' 
+                }} 
+              />
+              <div style={{ 
+                position: 'absolute', bottom: '10px', left: '10px',
+                backgroundColor: icone.cor, padding: '0.3rem 0.6rem',
+                fontWeight: '900', fontSize: '0.7rem', textTransform: 'uppercase',
+                border: '2px solid #000', transform: 'rotate(-2deg)'
+              }}>
+                {icone.tag}
+              </div>
             </div>
-          </div>
+
+            {/* APLICANDO O FLEX AQUI PARA CRIAR A GRAVIDADE NO BOTÃO */}
+            <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+              
+              {/* TRAVANDO A ALTURA DO NOME EM DUAS LINHAS */}
+              <h2 style={{ 
+                fontSize: '1.8rem', 
+                marginBottom: '1rem',
+                lineHeight: '1.2', 
+                minHeight: '2.4em' // O tamanho exato de duas linhas
+              }}>
+                {icone.nome}
+              </h2>
+              
+              {/* DOSSIÊ DINÂMICO CONECTADO À BASE DE DADOS */}
+              <div style={{ 
+                display: dossieAberto === icone.id ? 'block' : 'none',
+                padding: '1rem', 
+                backgroundColor: '#f4f4f0', 
+                border: '2px solid #000', 
+                marginBottom: '1rem' 
+              }}>
+                <p style={{ fontSize: '1rem', lineHeight: '1.4', margin: '0 0 1rem 0' }}>
+                  <strong style={{ color: icone.cor || '#000', textTransform: 'uppercase' }}>
+                    SEU LEGADO:
+                  </strong>
+                  <br />
+                  {icone.how}
+                </p>
+                
+                <p style={{ fontSize: '1rem', lineHeight: '1.4', margin: 0 }}>
+                  <strong style={{ color: '#000', textTransform: 'uppercase' }}>
+                    A LUTA CONTINUA:
+                  </strong>
+                  <br />
+                  {icone.against}
+                </p>
+              </div>
+
+              {/* BOTÃO COM GRAVIDADE: Empurra ele pro final do card */}
+              <button 
+                onClick={() => setDossieAberto(dossieAberto === icone.id ? null : icone.id)}
+                className="zine-button"
+                style={{ 
+                  backgroundColor: dossieAberto === icone.id ? '#000' : '#fff', 
+                  color: dossieAberto === icone.id ? '#fff' : '#000',
+                  marginTop: 'auto' // A mágica que alinha todos os botões no fundo
+                }}
+              >
+                {dossieAberto === icone.id ? 'FECHAR ✕' : 'ABRIR DOSSIÊ'}
+              </button>
+            </div>
+          </article>
         ))}
       </div>
     </div>
