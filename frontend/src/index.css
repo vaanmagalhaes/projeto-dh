@@ -1,0 +1,699 @@
+/* =========================================
+   1. VARIÁVEIS GLOBAIS E RESET
+   ========================================= */
+:root {
+    /* Paleta Zine/Manifesto */
+    --bg-color: #f4f4f0;
+    --texto-cor: #000;
+    --zine-purple: #9333ea;
+    --zine-orange: #ea580c;
+    --zine-yellow: #facc15;
+    --zine-green: #22c55e;
+    --zine-cian: #06b6d4;
+    --zine-pink: #ec4899;
+
+    /* Efeitos Brutalistas Constantes */
+    --border-thick: 3px solid #000;
+    /* Modo claro: sombra dura (pulp/street-art) sem neon */
+    --shadow-solid: 6px 6px 0px 0px #000;
+    --shadow-solid-hover: 10px 10px 0px 0px #000;
+    --shadow-neon-pequena: 4px 4px 0px 0px #000;
+}
+
+/* Modo escuro: fundo preto + glow neon sutil ativado nas sombras */
+[data-tema="escuro"] {
+    --bg-color: #000;
+    --texto-cor: #f4f4f0;
+    --shadow-solid: 6px 6px 0px 0px #000, 0 0 14px 1px rgba(6, 182, 212, 0.35);
+    --shadow-solid-hover:
+        10px 10px 0px 0px #000, 0 0 22px 3px rgba(236, 72, 153, 0.4);
+    --shadow-neon-pequena:
+        4px 4px 0px 0px #000, 0 0 10px 1px rgba(6, 182, 212, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+    color: var(--texto-cor);
+    overflow-x: hidden;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+/* =========================================
+   2. TIPOGRAFIA & COMPONENTES (BASE = MOBILE)
+   ========================================= */
+h1,
+h2,
+h3 {
+    text-transform: uppercase;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.zine-card {
+    background-color: #fff;
+    color: #000;
+    border: var(--border-thick);
+    box-shadow: var(--shadow-solid);
+    padding: 1.5rem;
+    transition: transform 0.2s;
+    width: 100%;
+}
+
+.zine-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: var(--shadow-solid-hover);
+}
+
+.zine-title-badge {
+    background-color: var(--zine-yellow);
+    color: #000;
+    border: var(--border-thick);
+    box-shadow: var(--shadow-neon-pequena);
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.zine-button {
+    background-color: #000;
+    color: #fff;
+    border: var(--border-thick);
+    font-weight: 900;
+    padding: 1rem;
+    width: 100%;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.zine-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+/* =========================================
+   3. HEADER & NAVEGAÇÃO
+   ========================================= */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    /* Mais padding lateral */
+    min-height: 85px;
+    /* Força o header a abraçar o logo de duas linhas */
+    background-color: #fff;
+    color: #000;
+    border-bottom: var(--border-thick);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+}
+
+.logo-badge {
+    background-color: var(--zine-yellow);
+    color: #000;
+    padding: 0.6rem;
+    border: var(--border-thick);
+    font-weight: 900;
+    transform: rotate(-2deg);
+    cursor: pointer;
+    font-size: 0.8rem;
+    max-width: 65%;
+    /* Evita bater no menu hambúrguer */
+    line-height: 1.4;
+    /* Dá um respiro entre as duas linhas do texto */
+    margin: 0.5rem 0;
+    /* Afasta das bordas do header */
+}
+
+.mobile-menu-btn {
+    background-color: #000;
+    color: #fff;
+    border: var(--border-thick);
+    width: 3rem;
+    height: 3rem;
+    font-weight: 900;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.mobile-menu-btn.open {
+    background-color: var(--zine-yellow);
+    color: #000;
+}
+
+.nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    margin-top: 1rem;
+    border-top: var(--border-thick);
+    background-color: #fff;
+    color: #000;
+}
+
+.nav-links.open {
+    display: flex !important;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.seletor-tema {
+    border: var(--border-thick);
+    box-shadow: var(--shadow-neon-pequena);
+    padding: 0.4rem 0.8rem;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.seletor-tema__botao {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #000;
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* =========================================
+   4. LAYOUT BASE E HERO (MOBILE)
+   ========================================= */
+.grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    /* Reduzido de 3rem para tirar o buraco branco gigante */
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.hero-section {
+    border: var(--border-thick);
+    background-color: var(--zine-purple);
+    color: #fff;
+    padding: 2rem 1.5rem;
+    box-shadow: var(--shadow-solid);
+    margin-top: 0.5rem;
+    /* Descola um pouco do header */
+    margin-bottom: 1rem;
+}
+
+.hero-section h1 {
+    /* Escala ajustada para palavras longas como SOBREVIVÊNCIA caberem bem */
+    font-size: clamp(1.4rem, 7.5vw, 3.5rem);
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    max-width: 600px;
+}
+
+/* =========================================
+   5. DETALHES DO DIREITO (GLOBAL - MOBILE E PC)
+   ========================================= */
+.detalhe-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 90%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    color: #000;
+    border: 5px solid #000;
+    box-shadow: var(--shadow-solid);
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border: 3px solid #000;
+    margin-bottom: 1.5rem;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.highlight-yellow {
+    background-color: var(--zine-yellow);
+    color: #000;
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border: 3px solid #000;
+    transform: rotate(-1deg);
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-neon-pequena);
+}
+
+.lista-direitos {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.lista-direitos li {
+    position: relative;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    border: 3px solid #000;
+    font-weight: 900;
+    background-color: #fff;
+    color: #000;
+    box-shadow: var(--shadow-neon-pequena);
+    width: 100%;
+}
+
+.lista-funciona li {
+    border-left: 10px solid var(--zine-green);
+}
+
+.lista-funciona li::before {
+    content: "✓";
+    margin-right: 10px;
+    color: var(--zine-green);
+}
+
+.lista-nao-funciona li {
+    border-left: 10px solid var(--zine-orange);
+}
+
+.lista-nao-funciona li::before {
+    content: "✕";
+    margin-right: 10px;
+    color: var(--zine-orange);
+}
+
+.titulo-secao-funciona,
+.titulo-secao-nao-funciona {
+    color: #000;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    border: var(--border-thick);
+    font-weight: 900;
+}
+
+.titulo-secao-funciona {
+    background-color: var(--zine-green);
+    transform: rotate(-1deg);
+}
+
+.titulo-secao-nao-funciona {
+    background-color: var(--zine-orange);
+    transform: rotate(1deg);
+}
+
+/* =========================================
+   5.1 CARDS DE DIREITO E PARCEIRO
+   ========================================= */
+.direito-card,
+.parceiro-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: fit-content;
+    min-height: auto;
+}
+
+.direito-card--rotacionado {
+    transform: rotate(-1deg);
+}
+
+.direito-card__numero {
+    color: #666;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.direito-card__titulo {
+    font-size: 1.8rem;
+    padding: 0.2rem 0.6rem;
+    border: 3px solid #000;
+    transform: rotate(-2deg);
+    margin-bottom: 1rem;
+    display: block;
+    width: fit-content;
+}
+
+.direito-card__desc {
+    font-weight: 600;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.direito-card__botao {
+    margin-top: 1.5rem;
+    background-color: #000;
+    color: #fff;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.parceiro-card__titulo {
+    /* Reserva espaço para até 3 linhas (cabe o maior título: "ARTICULAÇÃO PARA O
+     MONITORAMENTO DOS DIREITOS HUMANOS"), alinhando o início da descrição entre os cards */
+    line-height: 1.1;
+    min-height: 3.3em;
+}
+
+.parceiro-card__categoria {
+    font-weight: 900;
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin-top: 0.5rem;
+    /* Reserva espaço para até 2 linhas de tags, mesmo critério do título */
+    min-height: 2.6em;
+    display: block;
+}
+
+.parceiro-card__descricao {
+    margin-top: 1rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+}
+
+.parceiro-card__botao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background-color: #000;
+    color: #fff;
+    margin-top: auto;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+/* =========================================
+   5.5 GRID NUMÉRICO DE DIREITOS
+   ========================================= */
+.numeros-direitos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(70px, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.numero-direito {
+    aspect-ratio: 1 / 1;
+    border: var(--border-thick);
+    box-shadow: var(--shadow-neon-pequena);
+    font-weight: 900;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.numero-direito:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-solid-hover);
+}
+
+@media (min-width: 768px) {
+    .numeros-direitos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .numero-direito {
+        font-size: 1.8rem;
+    }
+}
+
+/* =========================================
+   5.4 FÓRUM
+   ========================================= */
+.forum-link-button {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 1rem;
+    font-family: inherit;
+    padding: 0;
+}
+
+/* =========================================
+   5.3 CARDS DE ÍCONE (LINHA DE FRENTE)
+   ========================================= */
+.icones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.icone-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.icone-card__media {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.icone-card__foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) contrast(110%) brightness(105%);
+}
+
+.icone-card__tag {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 0.3rem 0.6rem;
+    font-weight: 900;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    border: 2px solid #000;
+    transform: rotate(-2deg);
+}
+
+.icone-card__corpo {
+    padding: 1.5rem;
+}
+
+.icone-card__nome {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.icone-card__dossie {
+    padding: 1rem;
+    background-color: #f4f4f0;
+    color: #000;
+    border: 2px solid #000;
+    margin-bottom: 1rem;
+}
+
+.icone-card__dossie-texto {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin: 0 0 1rem 0;
+}
+
+.icone-card__dossie-texto strong {
+    text-transform: uppercase;
+}
+
+.icone-card__dossie-texto:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================
+   5.2 BOTÃO FLUTUANTE VOLTAR AO TOPO
+   ========================================= */
+.botao-topo {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--zine-purple);
+    color: #fff;
+    border: var(--border-thick);
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-2deg);
+    box-shadow: var(--shadow-solid);
+    z-index: 999;
+}
+
+/* =========================================
+   6. EXPANSÃO: TABLET E DESKTOP
+   ========================================= */
+@media (min-width: 768px) {
+    .zine-title-badge {
+        font-size: 1.5rem;
+    }
+
+    .zine-card {
+        padding: 2rem;
+        min-height: 400px;
+    }
+
+    .zine-card h2 {
+        font-size: 2.5rem !important;
+        /* Mantém impacto mas evita quebra estranha */
+    }
+
+    .icone-img {
+        width: 100%;
+        filter: grayscale(10%) contrast(120%) brightness(105%);
+        border-bottom: 4px solid #000;
+        /* Separa a arte do texto */
+    }
+
+    .site-header {
+        padding: 1.5rem 2rem;
+        flex-wrap: nowrap;
+        min-height: auto;
+    }
+
+    .logo-badge {
+        font-size: 1rem;
+        max-width: none;
+        margin: 0;
+    }
+
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex !important;
+        position: static;
+        width: auto;
+        flex-direction: row;
+        gap: 2rem;
+        padding: 0;
+        margin-top: 0;
+        border-top: none;
+    }
+
+    .nav-links a {
+        text-align: left;
+        transition: transform 0.2s;
+    }
+
+    .nav-links a:hover {
+        color: var(--zine-purple);
+        transform: translateY(-2px);
+    }
+
+    .seletor-tema {
+        margin: 0 0 0 auto;
+    }
+
+    .grid-layout {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .hero-section {
+        grid-column: 1 / -1;
+        padding: 4rem 2rem;
+    }
+
+    .hero-section h1 {
+        font-size: 5rem;
+        word-break: normal;
+    }
+
+    .detalhe-container {
+        max-width: 800px;
+        padding: 2.5rem;
+    }
+}
+
+/* =========================================
+   7. REGRAS EXCLUSIVAS MOBILE VS DESKTOP
+   ========================================= */
+@media (min-width: 768px) {
+    .quebra-mobile {
+        display: none;
+    }
+
+    .escondido-mobile {
+        display: block !important;
+    }
+
+    .botao-carregar-mais {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .escondido-mobile {
+        display: none !important;
+    }
+}
