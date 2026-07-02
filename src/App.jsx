@@ -4,8 +4,9 @@ import BoasVindas from './components/BoasVindas.jsx';
 import Direitos from './components/Direitos.jsx';
 import Icones from './components/Icones.jsx';
 import Ongs from './components/Ongs.jsx';
-import Forum from './components/Forum.jsx';
+import Aliados from './components/Aliados.jsx';
 import Quiz from './components/Quiz.jsx';
+import MuroResistencia from './components/MuroResistencia.jsx';
 import DetalheDireito from './components/DetalheDireito.jsx';
 import GraffitiCanvas from './components/GraffitiCanvas.jsx';
 
@@ -68,10 +69,12 @@ function App() {
         return <Icones />;
       case 'ongs':
         return <Ongs />;
-      case 'forum':
-        return <Forum />;
+      case 'aliados':
+        return <Aliados />
       case 'quiz':
         return <Quiz navegarPara={navegarPara} />;
+        case 'muro':
+        return <MuroResistencia />
       default:
         return null;
     }
@@ -107,7 +110,8 @@ function App() {
             }}>Direitos</a>
             <a href="#" onClick={(e) => { e.preventDefault(); navegarPara('icones'); }}>Ícones</a>
             <a href="#" onClick={(e) => { e.preventDefault(); navegarPara('ongs'); }}>ONGs</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); navegarPara('forum'); }}>Fórum</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); navegarPara('aliados'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Aliados</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); navegarPara('muro'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Muro de Resistência</a>
             <a href="#" onClick={(e) => { e.preventDefault(); navegarPara('quiz'); }} style={{ color: 'var(--zine-orange)', textDecoration: 'underline' }}>Quiz</a>
           </nav>
         </header>

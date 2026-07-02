@@ -8,14 +8,14 @@ import malala from '../assets/malala.png';
 import mandela from '../assets/mandela.png';
 //import krenak from '../assets/krenak.png';
 import king from '../assets/king.png';
-//import julio from '../assets/julio.png';
-//import greta from '../assets/greta.png';
+import julio from '../assets/julio.png';
+import greta from '../assets/greta.png';
 //import lorde from '../assets/lorde.png';
-//import freire from '../assets/freire.png';
-//import evaristo from '../assets/evaristo.png';
+import freire from '../assets/freire.png';
+import evaristo from '../assets/evaristo.png';
 //import ghandi from '../assets/ghandi.png';
 
-const fotos = { davis, marielle, malala, mandela, king };
+const fotos = { davis, marielle, malala, mandela, king, julio, greta, freire, evaristo };
 
 const Icones = () => {
   const [dossieAberto, setDossieAberto] = useState(null);
@@ -32,7 +32,7 @@ const Icones = () => {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
         {listaIcones.map((icone) => (
-          <article key={icone.id} className="zine-card" style={{ padding: '0', overflow: 'hidden' }}>
+          <article key={icone.id} className="zine-card" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
             
             <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
               <img 
@@ -41,7 +41,7 @@ const Icones = () => {
                 style={{ 
                   width: '100%', 
                   height: '100%',
-                  objectFit: 'cover', /* Garante que a foto horizontal não deforme */
+                  objectFit: 'cover',
                   filter: 'grayscale(20%) contrast(110%) brightness(105%)' 
                 }} 
               />
@@ -55,10 +55,20 @@ const Icones = () => {
               </div>
             </div>
 
-            <div style={{ padding: '1.5rem' }}>
-              <h2 style={{ fontSize: '1.8rem', marginBottom: '1rem' }}>{icone.nome}</h2>
+            {/* APLICANDO O FLEX AQUI PARA CRIAR A GRAVIDADE NO BOTÃO */}
+            <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
               
-{/* DOSSIÊ DINÂMICO CONECTADO À BASE DE DADOS */}
+              {/* TRAVANDO A ALTURA DO NOME EM DUAS LINHAS */}
+              <h2 style={{ 
+                fontSize: '1.8rem', 
+                marginBottom: '1rem',
+                lineHeight: '1.2', 
+                minHeight: '2.4em' // O tamanho exato de duas linhas
+              }}>
+                {icone.nome}
+              </h2>
+              
+              {/* DOSSIÊ DINÂMICO CONECTADO À BASE DE DADOS */}
               <div style={{ 
                 display: dossieAberto === icone.id ? 'block' : 'none',
                 padding: '1rem', 
@@ -83,10 +93,15 @@ const Icones = () => {
                 </p>
               </div>
 
+              {/* BOTÃO COM GRAVIDADE: Empurra ele pro final do card */}
               <button 
                 onClick={() => setDossieAberto(dossieAberto === icone.id ? null : icone.id)}
                 className="zine-button"
-                style={{ backgroundColor: dossieAberto === icone.id ? '#000' : '#fff', color: dossieAberto === icone.id ? '#fff' : '#000' }}
+                style={{ 
+                  backgroundColor: dossieAberto === icone.id ? '#000' : '#fff', 
+                  color: dossieAberto === icone.id ? '#fff' : '#000',
+                  marginTop: 'auto' // A mágica que alinha todos os botões no fundo
+                }}
               >
                 {dossieAberto === icone.id ? 'FECHAR ✕' : 'ABRIR DOSSIÊ'}
               </button>

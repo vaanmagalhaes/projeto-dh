@@ -406,3 +406,22 @@ h3 {
     display: none !important;
   }
 }
+
+
+.logo-aliado {
+  width: 100%;
+  max-width: 200px;
+  /* A mágica: Tira a cor, aumenta o contraste no talo e zera o brilho */
+  filter: grayscale(100%) contrast(300%) brightness(0%);
+  opacity: 0.6;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+.logo-aliado:hover {
+  opacity: 1;
+  /* No hover, devolvemos a imagem original para causar impacto */
+  filter: grayscale(0%) contrast(100%) brightness(100%);
+  transform: scale(1.05) rotate(-2deg);
+}
